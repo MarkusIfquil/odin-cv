@@ -31,7 +31,7 @@ function App() {
     return (
         <>
             <Input cv={cv} setCv={setCv} />
-            <Output cv={cv} setCv={setCv} />
+            <Output cv={cv} />
         </>
     );
 }
@@ -39,21 +39,51 @@ function App() {
 function Input({ cv, setCv }) {
     return (
         <>
-            <DetailsSection personal={cv.personal} />
-            <ListSection title={"Education"} items={cv.education} />
-            <ListSection title={"Work experience"} items={cv.professional} />
+            <DetailsSection personal={cv.personal} setCv={setCv} />
+            <ListSection
+                title={"Education"}
+                items={cv.education}
+                setCv={setCv}
+            />
+            <ListSection
+                title={"Work experience"}
+                items={cv.professional}
+                setCv={setCv}
+            />
         </>
     );
 }
 
-function DetailsSection({ personal }) {
+function DetailsSection({ personal, setCv }) {
+    function updatePersonal(field, value) {
+        setCv((prev) => ({
+            ...prev,
+            personal: { ...prev.personal, [field]: value },
+        }));
+    }
     return (
         <>
             <h1>Personal Details</h1>
-            <DetailInput legend={"Full name"} value={personal.name} />
-            <DetailInput legend={"Email"} value={personal.email} />
-            <DetailInput legend={"Phone number"} value={personal.tel} />
-            <DetailInput legend={"Address"} value={personal.locale} />
+            <DetailInput
+                legend={"Full name"}
+                value={personal.name}
+                onChange={(e) => updatePersonal("name", e.target.value)}
+            />
+            <DetailInput
+                legend={"Email"}
+                value={personal.email}
+                onChange={(e) => updatePersonal("email", e.target.value)}
+            />
+            <DetailInput
+                legend={"Phone number"}
+                value={personal.tel}
+                onChange={(e) => updatePersonal("tel", e.target.value)}
+            />
+            <DetailInput
+                legend={"Address"}
+                value={personal.locale}
+                onChange={(e) => updatePersonal("locale", e.target.value)}
+            />
         </>
     );
 }
@@ -78,16 +108,16 @@ function ListItem({ title }) {
     );
 }
 
-function DetailInput({ legend, value }) {
+function DetailInput({ legend, value, onChange }) {
     return (
         <>
             <legend>{legend}</legend>
-            <input type="" name="" value={value} />
+            <input type="" name="" value={value} onChange={onChange} />
         </>
     );
 }
 
-function Output({ cv, setCv }) {
+function Output({ cv }) {
     return (
         <>
             <header>
