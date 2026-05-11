@@ -13,10 +13,13 @@ function Input() {
     return (
         <>
             <DetailsSection />
-            <ListSection title={"Education"} listItems={[{ title: "AAA" }]} />
+            <ListSection
+                title={"Education"}
+                listItems={[{ title: "Random School" }]}
+            />
             <ListSection
                 title={"Work experience"}
-                listItems={[{ title: "AAA" }]}
+                listItems={[{ title: "Random work" }]}
             />
         </>
     );
@@ -63,35 +66,56 @@ function DetailInput({ legend, value }) {
     );
 }
 
-function Output({ title, email, tel, address, sections }) {
+function Output({ name, email, tel, address, sections }) {
     return (
         <>
             <header>
-                <h1>{title}</h1>
+                <h1>{name}</h1>
                 <div class="contact">
                     <Contact picture={""} text={email} />
                     <Contact picture={""} text={tel} />
                     <Contact picture={""} text={address} />
                 </div>
-                {sections}
+                {sections.map((s) => (
+                    <ListOutput section={s} />
+                ))}
             </header>
         </>
     );
 }
 
-function Contact() {}
-
-function ListInput() {}
-
-function ListOutputItem() {}
-
-function ListOutput({ headerText, sections }) {
+function Contact({ picture, text }) {
     return (
         <>
-            <header>{headerText}</header>
-            {sections.map((s) => (
+            <img src={picture} alt="" />
+            <p>{text}</p>
+        </>
+    );
+}
+
+function ListOutput(section) {
+    return (
+        <>
+            <header>{section.header}</header>
+            {section.items.map((s) => (
                 <ListOutputItem section={s} />
             ))}
+        </>
+    );
+}
+
+function ListOutputItem(item) {
+    return (
+        <>
+            <div class="time-and-place">
+                <p>
+                    {item.fromTime}-{item.toTime}
+                </p>
+                <p>{item.place}</p>
+            </div>
+            <h1>{item.loc}</h1>
+            <p>{item.position}</p>
+            <p>{item.description}</p>
         </>
     );
 }
