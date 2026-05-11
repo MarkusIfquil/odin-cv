@@ -176,32 +176,43 @@ function ListItemEdit({ listItem, unhide, setCv, id, section }) {
             ),
         }));
     }
+    function deleteItem() {
+        setCv((prev) => ({
+            ...prev,
+            [section]: prev[section].filter((i) => i.id !== id),
+        }));
+    }
     return (
         <>
+            <legend>Start date:</legend>
             <input
                 type=""
                 name=""
                 value={listItem.start}
                 onChange={(e) => editItem("start", e.target.value)}
             />
+            <legend>End date:</legend>
             <input
                 type=""
                 name=""
                 value={listItem.end}
                 onChange={(e) => editItem("end", e.target.value)}
             />
+            <legend>Locale:</legend>
             <input
                 type=""
                 name=""
                 value={listItem.locale}
                 onChange={(e) => editItem("locale", e.target.value)}
             />
+            <legend>Place:</legend>
             <input
                 type=""
                 name=""
                 value={listItem.place}
                 onChange={(e) => editItem("place", e.target.value)}
             />
+            <legend>Position:</legend>
             <input
                 type=""
                 name=""
@@ -210,6 +221,14 @@ function ListItemEdit({ listItem, unhide, setCv, id, section }) {
             />
             <button type="" onClick={(_) => unhide(id, section)}>
                 -
+            </button>
+            <button
+                type=""
+                onClick={(_) => {
+                    deleteItem();
+                }}
+            >
+                Delete
             </button>
         </>
     );
