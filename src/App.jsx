@@ -254,11 +254,19 @@ function Output({ cv }) {
                     <Contact picture={""} text={cv.personal.locale} />
                 </div>
             </header>
-            <ListOutput header="Education" section={cv.education} />
-            <ListOutput
-                header="Professional Experience"
-                section={cv.professional}
-            />
+            {cv.education.length ? (
+                <ListOutput header="Education" section={cv.education} />
+            ) : (
+                ""
+            )}
+            {cv.professional.length ? (
+                <ListOutput
+                    header="Professional Experience"
+                    section={cv.professional}
+                />
+            ) : (
+                ""
+            )}
         </>
     );
 }
