@@ -11,20 +11,24 @@ function App() {
         },
         education: [
             {
+                id: crypto.randomUUID(),
                 start: "09/2022",
                 end: "07/2026",
                 locale: "Nowhere, Oklahoma",
                 place: "Clown College",
                 position: "Bachelors in clownery",
+                hidden: false,
             },
         ],
         professional: [
             {
+                id: crypto.randomUUID(),
                 start: "09/2022",
                 end: "07/2026",
                 locale: "Nowhere, Oklahoma",
                 place: "Freelance clown",
                 position: "Clown",
+                hidden: false,
             },
         ],
     });
@@ -44,11 +48,13 @@ function Input({ cv, setCv }) {
                 title={"Education"}
                 items={cv.education}
                 setCv={setCv}
+                field={"education"}
             />
             <ListSection
                 title={"Work experience"}
                 items={cv.professional}
                 setCv={setCv}
+                field={"professional"}
             />
         </>
     );
@@ -88,23 +94,106 @@ function DetailsSection({ personal, setCv }) {
     );
 }
 
-function ListSection({ title, items }) {
+function ListSection({ title, items, setCv, field }) {
+    function unhideEdit(key, field) {
+        setCv((prev) => ({
+            ...prev,
+            [field]: prev[field].map((item) => {
+                return item.id === key
+                    ? { ...item, hidden: !item.hidden }
+                    : item;
+            }),
+        }));
+    }
     return (
         <div>
             <h1>{title}</h1>
-            {items.map((l) => (
-                <ListItem title={l.place} />
-            ))}
+            {items.map((l) => {
+                return !l.hidden ? (
+                    <ListItem
+                        title={l.place}
+                        unhide={unhideEdit}
+                        key={l.id}
+                        id={l.id}
+                        field={field}
+                    />
+                ) : (
+                    <ListItemEdit
+                        educationItem={l}
+                        setCv={setCv}
+                        unhide={unhideEdit}
+                        key={l.id}
+                        id={l.id}
+                        field={field}
+                    />
+                );
+            })}
+            <button type="">+ {title}</button>
         </div>
     );
 }
 
-function ListItem({ title }) {
+function ListItem({ title, unhide, id, field }) {
     return (
         <div>
             <h1>{title}</h1>
-            <button type="">-</button>
+            <button
+                type=""
+                onClick={(e) => {
+                    unhide(id, field);
+                }}
+            >
+                -
+            </button>
         </div>
+    );
+}
+
+function ListItemEdit({ educationItem, unhide, setCv, id, field }) {
+    function eduEdit(field, value) {
+        setCv((prev) => ({
+            ...prev,
+            education: prev.education.map((item) =>
+                item.id === id ? { ...item, [field]: value } : item,
+            ),
+        }));
+    }
+    return (
+        <>
+            <input
+                type=""
+                name=""
+                value={educationItem.start}
+                onChange={(e) => eduEdit("start", e.target.value)}
+            />
+            <input
+                type=""
+                name=""
+                value={educationItem.end}
+                onChange={(e) => eduEdit("end", e.target.value)}
+            />
+            <input
+                type=""
+                name=""
+                value={educationItem.locale}
+                onChange={(e) => eduEdit("locale", e.target.value)}
+            />
+            <input
+                type=""
+                name=""
+                value={educationItem.place}
+                onChange={(e) => eduEdit("place", e.target.value)}
+            />
+            <input
+                type=""
+                name=""
+                value={educationItem.position}
+                onChange={(e) => eduEdit("position", e.target.value)}
+            />
+            <button type="" onClick={(_) => unhide(id, field)}>
+                -
+            </button>
+        </>
     );
 }
 
