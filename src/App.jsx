@@ -95,6 +95,22 @@ function DetailsSection({ personal, setCv }) {
 }
 
 function ListSection({ title, items, setCv, field }) {
+    function addItem() {
+        setCv((prev) => ({
+            ...prev,
+            [field]: prev[field].concat([
+                {
+                    id: crypto.randomUUID(),
+                    start: "",
+                    end: "",
+                    locale: "",
+                    place: "",
+                    position: "",
+                    hidden: true,
+                },
+            ]),
+        }));
+    }
     function unhideEdit(key, field) {
         setCv((prev) => ({
             ...prev,
@@ -128,7 +144,9 @@ function ListSection({ title, items, setCv, field }) {
                     />
                 );
             })}
-            <button type="">+ {title}</button>
+            <button type="" onClick={(_) => addItem()}>
+                + {title}
+            </button>
         </div>
     );
 }
@@ -238,7 +256,7 @@ function Contact({ picture, text }) {
 function ListOutput({ header, section }) {
     return (
         <>
-            <header>{header}</header>
+            <h1>{header}</h1>
             {section.map((s) => (
                 <ListOutputItem item={s} />
             ))}
@@ -255,7 +273,7 @@ function ListOutputItem({ item }) {
                 </p>
                 <p>{item.locale}</p>
             </div>
-            <h1>{item.place}</h1>
+            <h2>{item.place}</h2>
             <p>{item.position}</p>
         </>
     );
