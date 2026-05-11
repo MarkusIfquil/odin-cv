@@ -135,12 +135,12 @@ function ListSection({ title, items, setCv, field }) {
                     />
                 ) : (
                     <ListItemEdit
-                        educationItem={l}
+                        listItem={l}
                         setCv={setCv}
                         unhide={unhideEdit}
                         key={l.id}
                         id={l.id}
-                        field={field}
+                        section={field}
                     />
                 );
             })}
@@ -167,11 +167,11 @@ function ListItem({ title, unhide, id, field }) {
     );
 }
 
-function ListItemEdit({ educationItem, unhide, setCv, id, field }) {
-    function eduEdit(field, value) {
+function ListItemEdit({ listItem, unhide, setCv, id, section }) {
+    function editItem(field, value) {
         setCv((prev) => ({
             ...prev,
-            education: prev.education.map((item) =>
+            [section]: prev[section].map((item) =>
                 item.id === id ? { ...item, [field]: value } : item,
             ),
         }));
@@ -181,34 +181,34 @@ function ListItemEdit({ educationItem, unhide, setCv, id, field }) {
             <input
                 type=""
                 name=""
-                value={educationItem.start}
-                onChange={(e) => eduEdit("start", e.target.value)}
+                value={listItem.start}
+                onChange={(e) => editItem("start", e.target.value)}
             />
             <input
                 type=""
                 name=""
-                value={educationItem.end}
-                onChange={(e) => eduEdit("end", e.target.value)}
+                value={listItem.end}
+                onChange={(e) => editItem("end", e.target.value)}
             />
             <input
                 type=""
                 name=""
-                value={educationItem.locale}
-                onChange={(e) => eduEdit("locale", e.target.value)}
+                value={listItem.locale}
+                onChange={(e) => editItem("locale", e.target.value)}
             />
             <input
                 type=""
                 name=""
-                value={educationItem.place}
-                onChange={(e) => eduEdit("place", e.target.value)}
+                value={listItem.place}
+                onChange={(e) => editItem("place", e.target.value)}
             />
             <input
                 type=""
                 name=""
-                value={educationItem.position}
-                onChange={(e) => eduEdit("position", e.target.value)}
+                value={listItem.position}
+                onChange={(e) => editItem("position", e.target.value)}
             />
-            <button type="" onClick={(_) => unhide(id, field)}>
+            <button type="" onClick={(_) => unhide(id, section)}>
                 -
             </button>
         </>
