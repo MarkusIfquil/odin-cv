@@ -7,7 +7,7 @@ const base_cv = {
     personal: {
         name: "Madeleine",
         email: "madeleine@fakeemail.com",
-        tel: "12 3456 7890",
+        tel: "+12 3456 7890",
         locale: "Hell, Michigan",
     },
     education: [
@@ -29,6 +29,8 @@ const base_cv = {
             locale: "Nowhere, Oklahoma",
             place: "Freelance clown",
             position: "Clown",
+            description:
+                "Clowned around on the internet, improving users' morale by 70%",
             hidden: true,
         },
     ],

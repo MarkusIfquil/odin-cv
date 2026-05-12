@@ -177,6 +177,12 @@ function ListItemEdit({ className, listItem, setCv, section }) {
                 onChange={(e) => editItem("position", e.target.value)}
             />
 
+            <ItemInput
+                legend={"Description:"}
+                value={listItem.description}
+                onChange={(e) => editItem("description", e.target.value)}
+            />
+
             <button
                 className="delete-item"
                 onClick={(_) => {

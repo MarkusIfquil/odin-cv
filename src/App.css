@@ -21,6 +21,12 @@ input {
     margin-bottom: 0.5em;
     margin-top: 0.25em;
     width: 100%;
+    transition: box-shadow 0.2s;
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 0 3px var(--ctp-latte-teal);
 }
 
 h1 {
@@ -45,6 +51,9 @@ button {
 .delete-item {
     width: 18ch;
     align-self: center;
+}
+
+.delete-item {
     margin-top: 1em;
 }
 
@@ -63,10 +72,11 @@ button {
     gap: 2em;
     justify-content: center;
     margin: 2em;
+    flex-wrap: wrap;
 }
 
 .card {
-    width: 50ch;
+    width: min(80vw, 50ch);
     padding: 2em;
     border-radius: 1em;
     background-color: var(--ctp-latte-base);
@@ -105,4 +115,77 @@ button {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
+}
+
+.output {
+    width: min(80vw, 75ch);
+
+    background-color: var(--ctp-latte-base);
+    box-shadow: 0.3em 0.3em 0.5em -0.5em;
+}
+
+.output header {
+    background-color: var(--ctp-latte-teal);
+    color: var(--ctp-latte-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em 3em;
+}
+
+.sections {
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.output h1 {
+    font-size: 250%;
+}
+
+.contact {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.list-output h1 {
+    padding-block: 0.2em;
+    font-size: 150%;
+    text-align: center;
+    background-color: var(--ctp-latte-crust);
+}
+
+.list-output-item {
+    display: flex;
+    gap: 1em;
+    margin: 1em;
+}
+
+.list-output-item h2 {
+    font-size: 130%;
+}
+
+.time-and-place {
+    max-width: 20ch;
+}
+
+.place-and-position {
+    max-width: 45ch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    img {
+        filter: brightness(0) invert(1);
+    }
 }
