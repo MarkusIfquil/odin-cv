@@ -157,7 +157,7 @@ button {
 
 .list-output-item {
     display: flex;
-    gap: 1em;
+    gap: 2em;
     margin: 1em;
 }
 
@@ -187,5 +187,19 @@ button {
     gap: 0.5em;
     img {
         filter: brightness(0) invert(1);
+    }
+}
+
+.icon-big {
+    width: 1.75em;
+    height: 1.75em;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    h1 {
+        margin-bottom: 0;
     }
 }

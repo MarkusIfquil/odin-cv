@@ -3,12 +3,14 @@ export function Input({ cv, setCv }) {
         <div className="input">
             <DetailsSection personal={cv.personal} setCv={setCv} />
             <ListSection
+                image={"./src/assets/school.png"}
                 title={"Education"}
                 items={cv.education}
                 setCv={setCv}
                 field={"education"}
             />
             <ListSection
+                image={"./src/assets/suitcase.png"}
                 title={"Work experience"}
                 items={cv.professional}
                 setCv={setCv}
@@ -52,7 +54,7 @@ function DetailsSection({ personal, setCv }) {
     );
 }
 
-function ListSection({ title, items, setCv, field }) {
+function ListSection({ image, title, items, setCv, field }) {
     function addItem() {
         setCv((prev) => ({
             ...prev,
@@ -81,7 +83,10 @@ function ListSection({ title, items, setCv, field }) {
     }
     return (
         <div className="card list">
-            <h1>{title}</h1>
+            <div className="title">
+                <img src={image} alt="" className="icon-big" />
+                <h1>{title}</h1>
+            </div>
             {items.map((l) => {
                 return (
                     <ListItem
