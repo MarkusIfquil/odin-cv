@@ -1,6 +1,6 @@
 export function Input({ cv, setCv }) {
     return (
-        <>
+        <div className="input">
             <DetailsSection personal={cv.personal} setCv={setCv} />
             <ListSection
                 title={"Education"}
@@ -14,7 +14,7 @@ export function Input({ cv, setCv }) {
                 setCv={setCv}
                 field={"professional"}
             />
-        </>
+        </div>
     );
 }
 
@@ -26,7 +26,7 @@ function DetailsSection({ personal, setCv }) {
         }));
     }
     return (
-        <>
+        <div className="card">
             <h1>Personal Details</h1>
             <DetailInput
                 legend={"Full name"}
@@ -48,7 +48,7 @@ function DetailsSection({ personal, setCv }) {
                 value={personal.locale}
                 onChange={(e) => updatePersonal("locale", e.target.value)}
             />
-        </>
+        </div>
     );
 }
 
@@ -64,7 +64,7 @@ function ListSection({ title, items, setCv, field }) {
                     locale: "",
                     place: "",
                     position: "",
-                    hidden: true,
+                    hidden: false,
                 },
             ]),
         }));
@@ -80,115 +80,112 @@ function ListSection({ title, items, setCv, field }) {
         }));
     }
     return (
-        <div>
+        <div className="card list">
             <h1>{title}</h1>
             {items.map((l) => {
-                return !l.hidden ? (
+                return (
                     <ListItem
-                        title={l.place}
+                        item={l}
                         unhide={unhideEdit}
                         key={l.id}
-                        id={l.id}
                         field={field}
-                    />
-                ) : (
-                    <ListItemEdit
-                        listItem={l}
                         setCv={setCv}
-                        unhide={unhideEdit}
-                        key={l.id}
-                        id={l.id}
-                        section={field}
                     />
                 );
             })}
-            <button type="" onClick={(_) => addItem()}>
+            <button className="plus-button" onClick={(_) => addItem()}>
                 + {title}
             </button>
         </div>
     );
 }
 
-function ListItem({ title, unhide, id, field }) {
+function ListItem({ item, unhide, field, setCv }) {
+    console.log(item.hidden);
     return (
-        <div>
-            <h1>{title}</h1>
-            <button
-                type=""
-                onClick={(e) => {
-                    unhide(id, field);
-                }}
-            >
-                -
-            </button>
-        </div>
+        <>
+            <div className="list-item">
+                <h2>{item.place}</h2>
+                <img
+                    src="src/assets/arrow-down-sign-to-navigate.png"
+                    className={
+                        item.hidden
+                            ? "dropdown-edit"
+                            : "dropdown-edit dropdown-clicked"
+                    }
+                    onClick={(_) => {
+                        unhide(item.id, field);
+                    }}
+                />
+            </div>
+
+            <ListItemEdit
+                className={
+                    item.hidden ? "list-item-edit hidden" : "list-item-edit"
+                }
+                listItem={item}
+                setCv={setCv}
+                section={field}
+            />
+        </>
     );
 }
 
-function ListItemEdit({ listItem, unhide, setCv, id, section }) {
+function ListItemEdit({ className, listItem, setCv, section }) {
     function editItem(field, value) {
         setCv((prev) => ({
             ...prev,
             [section]: prev[section].map((item) =>
-                item.id === id ? { ...item, [field]: value } : item,
+                item.id === listItem.id ? { ...item, [field]: value } : item,
             ),
         }));
     }
     function deleteItem() {
         setCv((prev) => ({
             ...prev,
-            [section]: prev[section].filter((i) => i.id !== id),
+            [section]: prev[section].filter((i) => i.id !== listItem.id),
         }));
     }
     return (
-        <>
-            <legend>Start date:</legend>
-            <input
-                type=""
-                name=""
+        <div className={className}>
+            <ItemInput
+                legend={"Start date:"}
                 value={listItem.start}
                 onChange={(e) => editItem("start", e.target.value)}
             />
-            <legend>End date:</legend>
-            <input
-                type=""
-                name=""
+
+            <ItemInput
+                legend={"End date:"}
                 value={listItem.end}
                 onChange={(e) => editItem("end", e.target.value)}
             />
-            <legend>Locale:</legend>
-            <input
-                type=""
-                name=""
+            <ItemInput
+                legend={"Locale:"}
                 value={listItem.locale}
                 onChange={(e) => editItem("locale", e.target.value)}
             />
-            <legend>Place:</legend>
-            <input
-                type=""
-                name=""
+
+            <ItemInput
+                legend={"Place:"}
                 value={listItem.place}
                 onChange={(e) => editItem("place", e.target.value)}
             />
-            <legend>Position:</legend>
-            <input
-                type=""
-                name=""
+
+            <ItemInput
+                legend={"Position:"}
                 value={listItem.position}
                 onChange={(e) => editItem("position", e.target.value)}
             />
-            <button type="" onClick={(_) => unhide(id, section)}>
-                -
-            </button>
+
             <button
-                type=""
+                className="delete-item"
                 onClick={(_) => {
                     deleteItem();
                 }}
             >
                 Delete
             </button>
-        </>
+        </div>
     );
 }
 
@@ -198,5 +195,14 @@ function DetailInput({ legend, value, onChange }) {
             <legend>{legend}</legend>
             <input type="" name="" value={value} onChange={onChange} />
         </>
+    );
+}
+
+function ItemInput({ legend, value, onChange }) {
+    return (
+        <div className="item-input">
+            <legend>{legend}</legend>
+            <input type="" name="" value={value} onChange={onChange} />
+        </div>
     );
 }

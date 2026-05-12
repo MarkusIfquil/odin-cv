@@ -18,7 +18,7 @@ const base_cv = {
             locale: "Nowhere, Oklahoma",
             place: "Clown College",
             position: "Bachelors in clownery",
-            hidden: false,
+            hidden: true,
         },
     ],
     professional: [
@@ -29,7 +29,7 @@ const base_cv = {
             locale: "Nowhere, Oklahoma",
             place: "Freelance clown",
             position: "Clown",
-            hidden: false,
+            hidden: true,
         },
     ],
 };
@@ -37,10 +37,10 @@ const base_cv = {
 function App() {
     let [cv, setCv] = useState(base_cv);
     return (
-        <>
+        <div className="app">
             <Input cv={cv} setCv={setCv} />
             <Output cv={cv} />
-        </>
+        </div>
     );
 }
 

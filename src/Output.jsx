@@ -1,6 +1,6 @@
 export function Output({ cv }) {
     return (
-        <>
+        <div className="output">
             <header>
                 <h1>{cv.personal.name}</h1>
                 <div class="contact">
@@ -22,7 +22,7 @@ export function Output({ cv }) {
             ) : (
                 ""
             )}
-        </>
+        </div>
     );
 }
 
