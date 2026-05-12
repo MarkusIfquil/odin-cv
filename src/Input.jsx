@@ -3,14 +3,14 @@ export function Input({ cv, setCv }) {
         <div className="input">
             <DetailsSection personal={cv.personal} setCv={setCv} />
             <ListSection
-                image={"./src/assets/school.png"}
+                image={"/assets/school.png"}
                 title={"Education"}
                 items={cv.education}
                 setCv={setCv}
                 field={"education"}
             />
             <ListSection
-                image={"./src/assets/suitcase.png"}
+                image={"/assets/suitcase.png"}
                 title={"Work experience"}
                 items={cv.professional}
                 setCv={setCv}
@@ -112,7 +112,7 @@ function ListItem({ item, unhide, field, setCv }) {
             <div className="list-item">
                 <h2>{item.place}</h2>
                 <img
-                    src="src/assets/arrow-down-sign-to-navigate.png"
+                    src="/assets/arrow-down-sign-to-navigate.png"
                     className={
                         item.hidden
                             ? "dropdown-edit"

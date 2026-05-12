@@ -5,15 +5,15 @@ export function Output({ cv }) {
                 <h1>{cv.personal.name}</h1>
                 <div class="contact">
                     <Contact
-                        picture={"./src/assets/email.png"}
+                        picture={"/assets/email.png"}
                         text={cv.personal.email}
                     />
                     <Contact
-                        picture={"./src/assets/telephone.png"}
+                        picture={"/assets/telephone.png"}
                         text={cv.personal.tel}
                     />
                     <Contact
-                        picture={"./src/assets/location.png"}
+                        picture={"/assets/location.png"}
                         text={cv.personal.locale}
                     />
                 </div>
